@@ -36,17 +36,17 @@
         drawLine(200 + (i * 12), (29 - i) * 0.05)
       }
 
-      if(direction === 0) {
+      if(direction === 0 && midpoint <= 40) {
         midpoint += 1
       }
-      else {
-        midpoint -= 1;
-      }
-      if(midpoint >= 100 && direction === 0) {
-        direction = 1
-      } else if(midpoint <= 0 && direction === 1) {
-        direction = 0
-      }
+      // else {
+      //   midpoint -= 1;
+      // }
+      // if(midpoint >= 100 && direction === 0) {
+      //   direction = 1
+      // } else if(midpoint <= 0 && direction === 1) {
+      //   direction = 0
+      // }
       requestAnimationFrame(animate)
     }
 
