@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <canvas width="500" height="900"></canvas>
+
+  <script>
+    const requestAnimationFrame = window.requestAnimationFrame ||
+                        window.mozRequestAnimationFrame ||
+                        window.webkitRequestAnimationFrame ||
+                        window.msRequestAnimationFrame;
+
+    let canvas = document.querySelector('canvas')
+    let ctx = canvas.getContext('2d')
+    ctx.strokeStyle = 'rgb(200, 0, 0)';
+    ctx.lineWidth = 3
+
+    let midpoint = 0;
+    let direction = 0;
+
+    function drawLine(y, idx) {
+      ctx.beginPath()
+      ctx.moveTo(0, y)
+      ctx.lineTo(375, -(midpoint * idx) + y);
+      ctx.stroke()
+      ctx.lineTo(500, y)
+      ctx.stroke()
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, 500, 900)
+
+      for(let i=0;i<30;i++) {
+        drawLine(200 + (i * 12), (29 - i) * 0.05)
+      }
+
+      if(direction === 0) {
+        midpoint += 1
+      }
+      else {
+        midpoint -= 1;
+      }
+      if(midpoint >= 100 && direction === 0) {
+        direction = 1
+      } else if(midpoint <= 0 && direction === 1) {
+        direction = 0
+      }
+      requestAnimationFrame(animate)
+    }
+
+    for(let i=0;i<30;i++) {
+      drawLine(200 + (i * 12), 1)
+    }
+
+    function handleCanvasClick() {
+      animate()
+      document.body.removeEventListener('click', handleCanvasClick)
+    }
+
+    document.body.addEventListener('click', handleCanvasClick)
+
+  </script>
+</body>
+</html>
